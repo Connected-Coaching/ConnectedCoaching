@@ -15,7 +15,7 @@ function createClassCard(){
     title.innerHTML = "Put name here"
     var floatedDiv = document.createElement("div");
     floatedDiv.style.width = "100%";
-    var 
+    
 
     innerDiv.appendChild(title)
     outerDiv.appendChild(innerDiv);
