@@ -32,24 +32,10 @@ h1{
 h2{
     font-weight: inherit;
 }
-#bothButtonContainers{
-    margin-left: 10%;
-    width: 80%;
-}
-.eachButtonContainer{
-    width: 100%;
-    margin-top: 10%;
-}
-.eachButton{
-    width: 100%;
-    padding: 2%;
+#plusButtonContainer{
+    width: 15%;
     border-radius: 10px 10px 10px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: rgb(238,124,110);
-    background-color: rgb(238,238,238);
-    transition: background-color .6s ease-in-out;
-}
-.eachButton:hover{
-    background-color: rgb(238,124,110);
+    position: fixed;
+    top: 80%;
+    left: 80%;
 }

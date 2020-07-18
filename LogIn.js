@@ -1,7 +1,8 @@
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const athlete = urlParams.get('athlete')
-
+// Sonav, from the Index.html, I have passed in if they are going to be a coach or an athlete
+// If you could store athlete in firebase so that we know, that would be good
 console.log(athlete);
 function onSignIn(googleUser) {
     var profile = googleUser.getBasicProfile();
