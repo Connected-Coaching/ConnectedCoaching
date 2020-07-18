@@ -8,14 +8,14 @@ body{
     margin-top: 10%;
 }
 h1{
-    margin-top: inherit;
+    font-weight: bolder;
+
 }
 #titleContainer{
     width: 80%;
     text-align: center;
     margin-left: 10%;
     font-size: 30px;
-    font-weight: bolder;
     margin-top: 2%;
 }
 #introContainer{
@@ -42,4 +42,9 @@ h2{
     border-width: 5px;
     border-style: solid;
     border-color: rgb(238,124,110);
+    background-color: rgb(238,238,238);
+    transition: background-color .6s ease-in-out;
+}
+.eachButton:hover{
+    background-color: rgb(238,124,110);
 }
