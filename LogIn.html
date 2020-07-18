@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="icon" href="Images/Favicon.png">
+
+        <title>Connected Coaching</title>
+        <link rel="stylesheet" type="text/css" href="LogIn.css">
+        <script src="LogIn.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="815003298486-fkvd4cu9570iflj9p75vpuget5ta3bea.apps.googleusercontent.com">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="logoContainer">
+            <img src="Images/ConnectedCoachingLogo.png" style="width: 100%;">
+        </div>
+        <div id="titleContainer">
+            <h1>Welcome!</h1>
+        </div>
+        <div style="margin-top: 10%;"></div>
+        <div id="introContainer">
+            <h2>Sign in with...</h2>
+        </div>
+        <div id="bothButtonContainers">
+            <div class="eachButtonContainer">
+                <button class="eachButton"><h1>Google</h1></button>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+            </div>
+        </div>
+    </body>
+</html>

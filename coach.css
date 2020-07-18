@@ -3,26 +3,31 @@ body{
     background-color: rgb(238,238,238);
 }
 #logoContainer{
-    width: 80%;
-    margin-left: 10%;
-    margin-top: 10%;
+    width: 35%;
+    margin-left: 5%;
+    margin-top: 5%;
+    float: left;
 }
 h1{
     font-weight: 900;
 
 }
 #titleContainer{
-    width: 80%;
+    width: 40%;
     text-align: center;
     margin-left: 10%;
-    font-size: 30px;
+    font-size: 18px;
     margin-top: 2%;
+    float: left;
 }
 #introContainer{
     color: rgb(91,91,91);
     font-weight: lighter;
     margin-left: 10%;
     font-size: 20px;
+    width: 80%;
+    text-align: center;
+    float:none;
 }
 h2{
     font-weight: inherit;
