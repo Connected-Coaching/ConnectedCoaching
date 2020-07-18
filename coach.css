@@ -48,5 +48,11 @@ h2{
     padding: 0%;
 }
 #outerClassDiv{
-    
+    width: 80%;
+    margin-left: 10%;
+    border: 5px;
+    border-style: solid;
+    border-radius: 20px 20px 20px;
+    border-color: rgb(238,124,110);
+
 }
