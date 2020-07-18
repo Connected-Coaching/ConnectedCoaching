@@ -1,0 +1,45 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(238,238,238);
+}
+#logoContainer{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 10%;
+}
+h1{
+    margin-top: inherit;
+}
+#titleContainer{
+    width: 80%;
+    text-align: center;
+    margin-left: 10%;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-top: 2%;
+}
+#introContainer{
+    color: rgb(91,91,91);
+    font-weight: lighter;
+    margin-left: 10%;
+    font-size: 20px;
+}
+h2{
+    font-weight: inherit;
+}
+#bothButtonContainers{
+    margin-left: 10%;
+    width: 80%;
+}
+.eachButtonContainer{
+    width: 100%;
+    margin-top: 10%;
+}
+.eachButton{
+    width: 100%;
+    padding: 2%;
+    border-radius: 10px 10px 10px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgb(238,124,110);
+}
