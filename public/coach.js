@@ -91,20 +91,40 @@ firebase.auth().onAuthStateChanged(function(user) {
             "coach":true
         }, { merge: true });
 
-        console.log("here 2");
-        db.collection("users").doc(user.email).collection("classes")
-            .get()
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    // doc.data() is never undefined for query doc snapshots
-                    console.log(doc.id, " => ", doc.data());
-                    createClassCard(doc.id, ["monday","tuesday"])
+        var count = 0;
+        db.collection("users").doc(getCookie("email")).collection("classes")
+        .get()
+        .then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                // doc.data() is never undefined for query doc snapshots
+                count++;
+                console.log(doc.id, " => ", doc.data());
+                var assignments = []
+                db.collection("classes").doc(doc.id).collection("assignments")
+                .get()
+                .then(function(querySnapshot) {
+                    querySnapshot.forEach(function(doc2) {
+                        // doc.data() is never undefined for query doc snapshots
+                        console.log(doc2.id, " => ", doc2.data());
+                        assignments.push(doc2.id)
+                    });
+                    console.log(assignments)
+                    console.log(doc.data.name)
+                    createClassCard(doc.id,assignments)
+
+                })
+                .catch(function(error) {
+                    console.log("Error getting documents: ", error);
                 });
-                console.log("here 3");
-            })
-    .catch(function(error) {
-        console.log("Error getting documents: ", error);
-    });
+            });
+            window.alert("count"+count);
+            if(count>0){
+                document.getElementById("introContainer").style.display = "none";
+            }
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
 
     } else {
         //no user
@@ -178,8 +198,8 @@ firebase.auth().onAuthStateChanged(function(user) {
     var eachTitleDiv = document.createElement("div");
     eachTitleDiv.style.float = "left";
     eachTitleDiv.style.width = "60%"
-    for(var i = 0;i<3;i++){
-        if(i<days.length){
+    for(var i = days.length-1;i>days.length-4;i--){
+        if(i>=0){
             var eachTitle = document.createElement("h2");
             eachTitle.innerHTML = days[i];
             eachTitle.style.margin = "0%";
