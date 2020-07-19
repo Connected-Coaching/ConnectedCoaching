@@ -48,3 +48,37 @@ h2{
 .eachButton:hover{
     background-color: rgb(238,124,110);
 }
+
+.mdl-textfield__input {
+    border-bottom: 5px solid rgb(238,124,110) !important;
+}
+
+.is-focused {
+    border-bottom: none!important;
+    box-shadow: none!important;
+}
+
+.mdl-textfield__label {
+    color: rgb(238,124,110) !important;
+}
+
+.mdl-button--colored {
+    background-color: rgb(238,124,110) !important;
+    
+}
+
+.mdl-button--raised {
+    box-shadow: none;
+}
+
+.firebaseui-container {
+    background-color: rgb(238,238,238) !important;
+}
+
+.firebaseui-card-header {
+    border-bottom: none !important;
+}
+
+.firebaseui-textfield.mdl-textfield .firebaseui-label::after {
+    background-color: rgb(238,124,110)!important;
+}
