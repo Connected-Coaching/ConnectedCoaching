@@ -275,8 +275,6 @@ function addClass(){
     specificClass.get()
     .then((docSnapshot) => {
     if (docSnapshot.exists) {
-      createTheClass
-        .onSnapshot((doc) => {
             console.log("class exists");
 
             createTheClass.set({
@@ -296,7 +294,6 @@ function addClass(){
                     });
                     console.log(assignments)
                     createClassCard(document.getElementById("newClassName").value,assignments)
-    
                 })
                 .catch(function(error) {
                     console.log("Error getting documents: ", error);
@@ -306,7 +303,6 @@ function addClass(){
                 console.error("Error writing document: ", error);
             });
             
-        });
     }else{
         window.alert("That class does not exist")
     }
