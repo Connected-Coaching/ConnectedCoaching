@@ -92,7 +92,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         }, { merge: true });
 
         var count = 0;
-        db.collection("users").doc(getCookie("email")).collection("classes")
+        db.collection("users").doc(userg.email).collection("classes")
         .get()
         .then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
