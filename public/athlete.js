@@ -363,6 +363,7 @@ function createClassCard(titleText, days){
     var eachTitleDiv = document.createElement("div");
     eachTitleDiv.style.float = "left";
     eachTitleDiv.style.width = "60%"
+    eachTitleDiv.style.paddingBottom = "2%"
     for(var i = days.length-1;i>days.length-4;i--){
         if(i>=0){
             var eachTitle = document.createElement("h2");
@@ -372,14 +373,6 @@ function createClassCard(titleText, days){
             eachTitle.style.float = "left"
             eachTitle.style.textAlign = "left"
             eachTitle.style.paddingBottom = "1%"
-            eachTitleDiv.appendChild(eachTitle)
-        }else{
-            var eachTitle = document.createElement("h2");
-            eachTitle.innerHTML = "";
-            eachTitle.appendChild(document.createElement("br"))
-            eachTitle.style.margin = "0%";
-            eachTitle.style.width = "52%"
-            eachTitle.style.float = "left"
             eachTitleDiv.appendChild(eachTitle)
         }
     }

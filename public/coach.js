@@ -189,7 +189,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     var eachTitleDiv = document.createElement("div");
     // eachTitleDiv.style.float = "left";
     eachTitleDiv.style.width = "100%"
-    window.alert("update");
+    eachTitleDiv.style.paddingBottom = "2%"
     for(var i = days.length-1;i>days.length-4;i--){
         if(i>=0){
             var eachTitle = document.createElement("h2");
