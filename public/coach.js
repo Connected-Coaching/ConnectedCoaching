@@ -15,25 +15,122 @@ function createClass() {
 }
 
 function startedUp(){
-    createClassCard();
+    window.alert(document.cookie)
+
+    //makes sure that the person has been added to the database
+    var addUsername = db.collection('users').doc(getCookie("email"));
+
+    var setWithMerge = addUsername.set({
+        
+    }, { merge: true });
+
+    console.log("doing stuff")
+    db.collection("users").doc(getCookie("email")).collection("classes")
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            createClassCard(doc.id, ["monday","tuesday"])
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+
+
 
 }
 // In progress for adding everything 
-function createClassCard(){
-    var days = ["monday","tuesday"]
+
+// you can just put in the name of the cookie you want to get (like "email"), and it will return what it is
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+  //to avoid errors with arrays not being well supported, I created another collection (and another document)
+  function addClass(){
+    var addUsername = db.collection('users').doc(getCookie("email")).collection("classes").doc(document.getElementById("nameOfClass").value);
+    addUsername.set({
+        "name":document.getElementById("nameOfClass").value,
+        "created":true
+    }).then(function() {
+        console.log("Document successfully written!");
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+    
+    console.log("Hello?")
+    console.log(document.getElementById("nameOfClass").value+"")
+    
+    
+  }
+
+  function createClassCard(titleText, days){
+
 
     var outerDiv = document.createElement("div");
     outerDiv.id = "outerClassDiv";
     var innerDiv = document.createElement("div");
-    innerDiv.style.width = "80%"
-    innerDiv.style.marginLeft = "10%"
+    innerDiv.style.width = "90%"
+    innerDiv.style.marginLeft = "5%"
     var title = document.createElement("h1");
-    title.innerHTML = "Put name here"
+    title.innerHTML = titleText
+    if(title.innerHTML.length>14){
+        title.innerHTML = title.innerHTML.substring(0,14)+"..."
+    }
+    title.style.margin = "2%";
+    title.style.marginLeft = "0%";
     var floatedDiv = document.createElement("div");
     floatedDiv.style.width = "100%";
+    floatedDiv.style.overflow = "hidden";
+    console.log("huh")
+
     
 
-    innerDiv.appendChild(title)
+    var eachTitleDiv = document.createElement("div");
+    eachTitleDiv.style.float = "left";
+    eachTitleDiv.style.width = "60%"
+    for(var i = 0;i<days.length && i<3;i++){
+        var eachTitle = document.createElement("h2");
+        eachTitle.innerHTML = days[i];
+        eachTitle.style.margin = "0%";
+        eachTitle.style.width = "52%"
+        eachTitle.style.float = "left"
+        eachTitleDiv.appendChild(eachTitle)
+    }
+    floatedDiv.appendChild(eachTitleDiv)
+
+
+    var button = document.createElement("button");
+    var img = document.createElement("img")
+    img.src = "Images/add.png";
+    button.style.width = "25%";
+    button.style.position = "relative";
+    // button.style.left = "50%";
+    // button.style.top = "-20%"
+    button.style.float  = "left";
+    img.className = "plusImage";
+    button.className = "addButton";
+    
+    button.appendChild(img)
+    floatedDiv.appendChild(button);
+
+    innerDiv.appendChild(title);
+    innerDiv.appendChild(floatedDiv);
     outerDiv.appendChild(innerDiv);
     document.getElementById("startPlacingHere").appendChild(outerDiv)
 }

@@ -15,6 +15,35 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const athlete = urlParams.get('athlete')
 
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var displayName = user.displayName;
+    var email = user.email;
+    var emailVerified = user.emailVerified;
+    var photoURL = user.photoURL;
+    var isAnonymous = user.isAnonymous;
+    var uid = user.uid;
+    var providerData = user.providerData;
+    window.alert(displayName)
+
+    document.cookie = "displayName = "+displayName;
+    document.cookie = "email = "+email;
+    document.cookie = "emailVerified = "+emailVerified;
+    document.cookie = "photoURL = "+photoURL;
+    document.cookie = "isAnonymous = "+isAnonymous;
+    document.cookie = "uid = "+uid;
+    document.cookie = "providerData = "+providerData;
+
+
+    window.location.href = "/coach.html";
+    // ...
+  } else {
+    // User is signed out.
+    // ...
+  }
+});
+
 // Initialize the FirebaseUI Widget using Firebase.
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
@@ -27,7 +56,9 @@ var uiConfig = {
         // User successfully signed in.
         // Return type determines whether we continue the redirect automatically
         // or whether we leave that to developer to handle.
-        return true;
+        window.alert(authResult.displayName);
+
+        return false;
       },
       uiShown: function() {
         // The widget is rendered.
