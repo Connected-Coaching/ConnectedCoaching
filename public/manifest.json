@@ -1,0 +1,15 @@
+{
+    "name": "Connected Coaching",
+    "short_name": "CC",
+    "display": "standalone",
+    "start_url": "/",
+    "theme_color": "#fca79c",
+    "background_color": "#eeeeee",
+    "icons": [
+      {
+        "src": "Images/Favicon.png",
+        "sizes": "1201x1201",
+        "type": "image/png"
+      }
+    ]
+  }

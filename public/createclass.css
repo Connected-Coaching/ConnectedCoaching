@@ -1,0 +1,12 @@
+#createClassDiv {
+    background-color: rgba(25, 25, 25, 0.149);
+}
+
+#createClassCard {
+    background-color: rgb(238,238,238);
+    border-radius: 5vw;
+    height: 80vh;
+    margin-top: 10vh;
+    width: 80vw;
+    margin-left: 10vw;
+}

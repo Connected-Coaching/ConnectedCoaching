@@ -1,0 +1,163 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(238,238,238);
+}
+
+.screenDiv {
+    width: 100vw;
+    min-height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#signOutButton {
+    border-color: rgb(254,105,93);
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 3vw;
+    position: absolute;
+    top: 7vw;
+    right: 10vw;
+    font-weight: inherit;
+    color: rgb(91,91,91);
+    font-weight: lighter;
+    font-size: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgb(254,105,93, 0.4);
+}
+
+#backToClassesButton {
+    border-color: rgb(254,105,93);
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 3vw;
+    position: absolute;
+    top: 7vw;
+    left: 10vw;
+    font-weight: inherit;
+    color: rgb(91,91,91);
+    font-weight: lighter;
+    font-size: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgb(254,105,93, 0.4);
+}
+
+#classTitleText {
+    margin-top: 10vw;
+    font-size: 10vw;
+}
+
+.smallLogo {
+    width: 30vw;
+    height: auto;
+    left: 10vw;
+    top: 20vw;
+    position: absolute;
+}
+.smallLogoText {
+    position: absolute;
+    font-size: 10vw;
+    right: 10vw;
+    top: 20vw;
+    text-align: right;
+}
+
+.smallLogoContainer {
+    margin-top: 20vw;
+    width: 100vw;
+    height: 20vw;
+}
+
+#logoContainer{
+    width: 35%;
+    margin-left: 5%;
+    margin-top: 5%;
+    float: left;
+}
+#logoContainer:first-child {
+    width: 80vw;
+    margin-left: 10vw;
+}
+h1{
+    font-weight: 900;
+    margin: 0;
+}
+#titleContainer{
+    width: 40%;
+    text-align: center;
+    margin-left: 10%;
+    font-size: 18px;
+    margin-top: 2%;
+    /* float: left; */
+}
+#titleConainer:first-child {
+    margin-top: 5vw;
+    margin-bottom: 0;
+}
+
+#introContainer{
+    color: rgb(91,91,91);
+    font-weight: lighter;
+    margin-left: 10%;
+    font-size: 20px;
+    width: 80%;
+    text-align: center;
+    float:none;
+}
+h2{
+    font-weight: inherit;
+    color: rgb(91,91,91);
+    font-weight: lighter;
+
+}
+.plusButton {
+    width: 15vw;
+    height: 15vw;
+    border-radius: 10px 10px 10px;
+    position: fixed;
+    bottom: 10vw;
+    right: 10vw;
+    border-color: rgb(254,105,93);
+    border-style: solid;
+    border-width: 5px;
+    z-index: 15;
+    padding: 0%;
+}
+.plusButtonImage {
+    margin-top: 1.2vw;
+    margin-left: 1.2vw;
+    width: 10vw;
+    border-radius: 10px 10px 10px;
+    z-index: 15;
+    padding: 0%;
+}
+
+#outerClassDiv{
+    width: 75vw;
+    margin-left: 10%;
+    border: 5px;
+    border-style: solid;
+    border-radius: 20px 20px 20px;
+    border-color: rgb(254,105,93);
+    background-color: white;
+    box-shadow: 0px 0px 10px rgb(254,105,93, 0.4);
+}
+#classCards {
+    margin-top: 0;
+}
+
+.plusImage{
+    width: 95%;
+    height: 95%;
+    margin: 2.5%;
+}
+.addButton{
+    border-color: rgb(254,105,93);
+    border-style: solid;
+    border-width: 5px;
+    z-index: 15;
+    padding: 0%;
+    border-radius: 10px 10px 10px;
+
+}

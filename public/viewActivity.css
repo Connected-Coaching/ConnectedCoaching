@@ -1,0 +1,84 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(238,238,238);
+}
+#logoContainer{
+    width: 35%;
+    margin-left: 5%;
+    margin-top: 5%;
+    float: left;
+}
+h1{
+    font-weight: 900;
+
+}
+#bottomBar{
+    position: fixed;
+    top: 90%;
+    width: 100%;
+}
+#backButtonContainer{
+    margin-left: 3%;
+    top: 90%;
+    border-style: solid;
+    border-radius: 10px 10px 10px;
+    border-width: 5px;
+    border-color: rgb(238,124,110);
+    float: left;
+}
+#titleContainer{
+    width: 90%;
+    text-align: right;
+    margin-right: 10%;
+    font-size: 18px;
+    margin-top: 2%;
+    float: left;
+}
+#introContainer{
+    color: rgb(91,91,91);
+    font-weight: lighter;
+    margin-left: 10%;
+    font-size: 20px;
+    text-align: center;
+    float:none;
+}
+h2{
+    font-weight: inherit;
+    color: rgb(91,91,91);
+    font-weight: lighter;
+
+}
+#plusButtonContainer{
+    max-width: 62px;
+    border-radius: 10px 10px 10px;
+    border-color: rgb(238,124,110);
+    border-style: solid;
+    border-width: 5px;
+    z-index: 15;
+    padding: 0%;
+    float: right;
+    margin-right: 8%;
+}
+#outerClassDiv{
+    width: 80%;
+    margin-left: 10%;
+    border: 5px;
+    border-style: solid;
+    border-radius: 20px 20px 20px;
+    border-color: rgb(238,124,110);
+
+}
+.plusImage{
+    width: 95%;
+    height: 95%;
+    margin: 2.5%;
+}
+.addButton{
+    border-color: rgb(238,124,110);
+    border-style: solid;
+    border-width: 5px;
+    z-index: 15;
+    padding: 0%;
+    border-radius: 10px 10px 10px;
+
+}
