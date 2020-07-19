@@ -16,6 +16,8 @@ var firebaseConfig = {
 // Initialize the FirebaseUI Widget using Firebase.
 var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
+var userg;
+
 // var redirectURL = "/coach.html";
 var uiConfig = {
     callbacks: {
@@ -67,6 +69,8 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         document.cookie = "user = " + user;
 
+        userg = user;
+
 
         console.log("here 1");
         console.log(user);
@@ -117,7 +121,7 @@ function startedUp(){
   function createClassInDB() {
 
     //gives coach the class in db
-    var createTheClass = db.collection('users').doc(getCookie("user").email).collection("classes").doc(document.getElementById("newClassName").value);
+    var createTheClass = db.collection('users').doc(userg.email).collection("classes").doc(document.getElementById("newClassName").value);
     createTheClass.set({
         "name":document.getElementById("newClassName").value,
         "created":true
@@ -132,12 +136,14 @@ function startedUp(){
     // adds the class to classes collection
     var addToRoot = db.collection("classes").doc(document.getElementById("newClassName").value);
     addToRoot.set({
-        "owner":getCookie("user").email
+        "owner":userg.email
     }).then(function(){
 
     }).catch(function(error){
         console.error("Error with adding to the big classes list")
     });
+
+    hideCreateClassDiv();
 
   }
 
