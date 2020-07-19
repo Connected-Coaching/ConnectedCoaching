@@ -7,13 +7,7 @@ firebase.initializeApp({
   
 var db = firebase.firestore();
 
-function createClass() {
-    var className = document.getElementById("newClassNameInput");
-    if (className.value != "") {
-        db.collection("")
-    }
-}
-
+//gets called after page load
 function startedUp(){
     window.alert(document.cookie)
 
@@ -26,6 +20,7 @@ function startedUp(){
     }, { merge: true });
 
     console.log("doing stuff")
+    //draws each one of the classes that are pertinent to the coach
     db.collection("users").doc(getCookie("email")).collection("classes")
     .get()
     .then(function(querySnapshot) {
@@ -92,9 +87,16 @@ function getCookie(cname) {
     
     
   }
+function addActivity(className){
 
+}
   function createClassCard(titleText, days){
-
+    var outerButton = document.createElement("button");
+    outerButton.onclick = function(){
+        window.location.href = "/addActivity.html?class="+titleText;
+    }
+    console.log("addActivity(\""+titleText+"\")")
+    outerButton.style.border = "none";
 
     var outerDiv = document.createElement("div");
     outerDiv.id = "outerClassDiv";
@@ -156,5 +158,6 @@ function getCookie(cname) {
     innerDiv.appendChild(title);
     innerDiv.appendChild(floatedDiv);
     outerDiv.appendChild(innerDiv);
-    document.getElementById("startPlacingHere").appendChild(outerDiv)
+    outerButton.appendChild(outerDiv);
+    document.getElementById("startPlacingHere").append(outerButton)
 }

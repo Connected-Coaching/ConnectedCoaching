@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <link rel="icon" href="Images/Favicon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Connected Coaching</title>
+        <link rel="stylesheet" type="text/css" href="addActivity.css">
+        
+        <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+        
+        <script src="addActivity.js"></script>
+
+        
+    </head>
+    <body onload="startedUp()">
+        <button id="plusButtonContainer">
+            <img src="Images/Add.png" style="width: 95%;height: 95%;margin: 2.5%;">
+        </button>
+        <div id="logoContainer">
+            <img src="Images/ConnectedCoachingLogo.png" style="width: 100%;">
+        </div>
+        <div id="titleContainer">
+            <h1>Connected<br>Coaching</h1>
+        </div>
+        <br>
+        <div style="margin-top: 25%;" id="startPlacingHere"><br></div>
+        <!-- Make this div opacity 0 if we detect they have a class -->
+        <div id="introContainer">
+            <h2>Get started by creating a class...</h2>
+        </div>
+        <input id="nameOfClass">
+        <button onclick="addClass()"></button>
+    </body>
+</html>
