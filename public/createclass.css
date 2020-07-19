@@ -3,10 +3,71 @@
 }
 
 #createClassCard {
-    background-color: rgb(238,238,238);
+    background-color: white;
     border-radius: 5vw;
-    height: 80vh;
+    height: auto;
     margin-top: 10vh;
     width: 80vw;
     margin-left: 10vw;
+    position: relative;
+    box-shadow: 0px 0px 10px rgb(254,105,93, 0.4);
+    border-color: rgb(254,105,93);
+    border-style: solid;
+    border-width: 5px;
+}
+
+.popupTitle {
+    margin-top: 3vw;
+    margin-left: 3vw;
+    color: black;
+    font-weight: 900;
+}
+
+.cancelX {
+    position: absolute;
+    top: 3vw;
+    right: 3vw;
+    width: 8vw;
+    height: 8vw;
+    border: none;
+    background-color: white;
+}
+.cancelXImage {
+    width: 8vw;
+    height: 8vw;
+    background-color: white;
+}
+
+.inputLabel {
+    margin-top: 8vw;
+    margin-left: 3vw;
+}
+
+.nameInput {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 5px solid rgb(254,105,93);
+    margin-left: 3vw;
+    font-weight: inherit;
+    color: rgb(91,91,91);
+    font-weight: lighter;
+    font-size: 7vw;
+    width: 70vw;
+}
+
+.additionButton {
+    border-color: rgb(254,105,93);
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 3vw;
+    font-weight: inherit;
+    color: rgb(91,91,91);
+    font-weight: lighter;
+    font-size: 20px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgb(254,105,93, 0.4);
+    margin-bottom: 5vw;
+    margin-top: 5vw;
+    margin-left: 3vw;
 }

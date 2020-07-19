@@ -195,6 +195,7 @@ firebase.auth().onAuthStateChanged(function(user) {
             eachTitle.innerHTML = days[i];
             eachTitle.style.margin = "0%";
             eachTitle.style.width = "100%"
+            eachTitle.style.textAlign = "left";
             // eachTitle.style.float = "left"
             eachTitleDiv.appendChild(eachTitle)
         }
