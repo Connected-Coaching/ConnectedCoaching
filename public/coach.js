@@ -19,9 +19,10 @@ function startedUp(){
 
     //makes sure that the person has been added to the database
     var addUsername = db.collection('users').doc(getCookie("email"));
-
     var setWithMerge = addUsername.set({
-        
+        "name":getCookie("displayName"),
+        // make sure to change this to false for students
+        "coach":true
     }, { merge: true });
 
     console.log("doing stuff")
@@ -61,18 +62,31 @@ function getCookie(cname) {
   }
 
   //to avoid errors with arrays not being well supported, I created another collection (and another document)
+  //adds it into user database
   function addClass(){
-    var addUsername = db.collection('users').doc(getCookie("email")).collection("classes").doc(document.getElementById("nameOfClass").value);
-    addUsername.set({
+    var createTheClass = db.collection('users').doc(getCookie("email")).collection("classes").doc(document.getElementById("nameOfClass").value);
+    createTheClass.set({
         "name":document.getElementById("nameOfClass").value,
         "created":true
     }).then(function() {
         console.log("Document successfully written!");
+        createClassCard(document.getElementById("nameOfClass").value,[''])
     })
     .catch(function(error) {
         console.error("Error writing document: ", error);
     });
-    
+
+
+    //adds the class to the other root
+    var addToRoot = db.collection("classes").doc(document.getElementById("nameOfClass").value);
+    addToRoot.set({
+        "owner":getCookie("email")
+    }).then(function(){
+
+    }).catch(function(error){
+        console.error("Error with adding to the big classes list")
+    })
+
     console.log("Hello?")
     console.log(document.getElementById("nameOfClass").value+"")
     
@@ -104,13 +118,23 @@ function getCookie(cname) {
     var eachTitleDiv = document.createElement("div");
     eachTitleDiv.style.float = "left";
     eachTitleDiv.style.width = "60%"
-    for(var i = 0;i<days.length && i<3;i++){
-        var eachTitle = document.createElement("h2");
-        eachTitle.innerHTML = days[i];
-        eachTitle.style.margin = "0%";
-        eachTitle.style.width = "52%"
-        eachTitle.style.float = "left"
-        eachTitleDiv.appendChild(eachTitle)
+    for(var i = 0;i<3;i++){
+        if(i<days.length){
+            var eachTitle = document.createElement("h2");
+            eachTitle.innerHTML = days[i];
+            eachTitle.style.margin = "0%";
+            eachTitle.style.width = "52%"
+            eachTitle.style.float = "left"
+            eachTitleDiv.appendChild(eachTitle)
+        }else{
+            var eachTitle = document.createElement("h2");
+            eachTitle.innerHTML = "";
+            eachTitle.appendChild(document.createElement("br"))
+            eachTitle.style.margin = "0%";
+            eachTitle.style.width = "52%"
+            eachTitle.style.float = "left"
+            eachTitleDiv.appendChild(eachTitle)
+        }
     }
     floatedDiv.appendChild(eachTitleDiv)
 
