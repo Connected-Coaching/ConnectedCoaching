@@ -162,6 +162,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     console.log("addActivity(\""+titleText+"\")")
     outerButton.style.border = "none";
     outerButton.style.minHeight = "10vw";
+    outerButton.style.marginTop = "10vw";
 
     var outerDiv = document.createElement("div");
     outerDiv.id = "outerClassDiv";
