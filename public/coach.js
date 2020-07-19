@@ -253,7 +253,7 @@ function createActivityCard(titleText, days){
 
     var eachTitleDiv = document.createElement("div");
     eachTitleDiv.style.float = "left";
-    eachTitleDiv.style.width = "60%"
+    eachTitleDiv.style.width = "100%"
 
     var eachTitle = document.createElement("h2");
     eachTitle.innerHTML = days;

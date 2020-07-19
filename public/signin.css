@@ -7,6 +7,10 @@ body{
     margin-left: 20%;
     margin-top: 15%;
 }
+#bigLogo {
+    width: 80vw;
+}
+
 h1{
     font-weight: 900;
 
