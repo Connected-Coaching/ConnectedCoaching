@@ -346,8 +346,9 @@ function createClassCard(titleText, days){
     innerDiv.style.marginLeft = "5%"
     var title = document.createElement("h1");
     title.innerHTML = titleText
-    if(title.innerHTML.length>14){
-        title.innerHTML = title.innerHTML.substring(0,14)+"..."
+    title.style.textAlign = "left"
+    if(title.innerHTML.length>16){
+        title.innerHTML = title.innerHTML.substring(0,16)+"..."
     }
     title.style.margin = "2%";
     title.style.marginLeft = "0%";
