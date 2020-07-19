@@ -13,9 +13,45 @@ var db = firebase.firestore();
 const classData = db.collection("classes").doc(classChosen);
 
 function startedUp(){
-    window.alert(classChosen);
-}
+    document.getElementById("selectionMenu").style.display = "none";
 
+    document.getElementById("titleText").innerHTML = classChosen;
+
+    var count = 0;
+    classData.collection("assignments")
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            createClassCard(doc.id, doc.data().sets)
+            count++;
+        });
+        console.log(count);
+        if(count>0){
+            document.getElementById("introContainer").remove();
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+    
+    
+}
+function addWorkout(){
+    document.getElementById("selectionMenu").style.display = "none";
+    var gettingToDate = classData.collection("assignments").doc(document.getElementById("date").value);
+    gettingToDate.set({
+        "sets":document.getElementById("workout").value
+    }).then(function() {
+        console.log("Document successfully written!");
+        console.log(document.getElementById("workout").value);
+        createClassCard(document.getElementById("date").value,document.getElementById("workout").value)
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+}
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -31,11 +67,14 @@ function getCookie(cname) {
     }
     return "";
   }
-
+function makeInvisible(){
+    document.getElementById("selectionMenu").style.display = "none"
+}
+function showPrompt(){
+    document.getElementById("selectionMenu").style.display = "block"
+}
   function createClassCard(titleText, days){
-    var outerButton = document.createElement("button");
-    outerButton.onclick = "addActivity("+titleText+")"
-    outerButton.style.border = "none";
+
 
     var outerDiv = document.createElement("div");
     outerDiv.id = "outerClassDiv";
@@ -59,44 +98,22 @@ function getCookie(cname) {
     var eachTitleDiv = document.createElement("div");
     eachTitleDiv.style.float = "left";
     eachTitleDiv.style.width = "60%"
-    for(var i = 0;i<3;i++){
-        if(i<days.length){
-            var eachTitle = document.createElement("h2");
-            eachTitle.innerHTML = days[i];
-            eachTitle.style.margin = "0%";
-            eachTitle.style.width = "52%"
-            eachTitle.style.float = "left"
-            eachTitleDiv.appendChild(eachTitle)
-        }else{
-            var eachTitle = document.createElement("h2");
-            eachTitle.innerHTML = "";
-            eachTitle.appendChild(document.createElement("br"))
-            eachTitle.style.margin = "0%";
-            eachTitle.style.width = "52%"
-            eachTitle.style.float = "left"
-            eachTitleDiv.appendChild(eachTitle)
-        }
-    }
+
+    var eachTitle = document.createElement("h2");
+    eachTitle.innerHTML = days;
+    eachTitle.style.margin = "0%";
+    eachTitle.style.width = "100%"
+    eachTitle.style.float = "left"
+    eachTitleDiv.appendChild(eachTitle)
+
+    
     floatedDiv.appendChild(eachTitleDiv)
 
 
-    var button = document.createElement("button");
-    var img = document.createElement("img")
-    img.src = "Images/add.png";
-    button.style.width = "25%";
-    button.style.position = "relative";
-    // button.style.left = "50%";
-    // button.style.top = "-20%"
-    button.style.float  = "left";
-    img.className = "plusImage";
-    button.className = "addButton";
-    
-    button.appendChild(img)
-    floatedDiv.appendChild(button);
+    outerDiv.style.marginBottom = "5%"
 
     innerDiv.appendChild(title);
     innerDiv.appendChild(floatedDiv);
     outerDiv.appendChild(innerDiv);
-    outerButton.appendChild(outerDiv);
-    document.getElementById("startPlacingHere").append(outerButton)
+    document.getElementById("startPlacingHere").append(outerDiv)
 }
