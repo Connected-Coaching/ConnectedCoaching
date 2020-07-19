@@ -31,8 +31,6 @@ var uiConfig = {
         // User successfully signed in.
         // Return type determines whether we continue the redirect automatically
         // or whether we leave that to developer to handle.
-        console.log(authResult);
-        window.alert(authResult.displayName);
 
         return false;
       },
@@ -79,13 +77,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         userg = user;
 
-
-        console.log("here 1");
-        console.log(user);
-        console.log(user.email);
-        console.log(user.displayName);
         var addUsername = db.collection('users').doc(user.email);
-        console.log("here 43");
         var setWithMerge = addUsername.set({
             "name":user.displayName,
             "coach":true
@@ -98,18 +90,14 @@ firebase.auth().onAuthStateChanged(function(user) {
             querySnapshot.forEach(function(doc) {
                 // doc.data() is never undefined for query doc snapshots
                 count++;
-                console.log(doc.id, " => ", doc.data());
                 var assignments = []
                 db.collection("classes").doc(doc.id).collection("assignments")
                 .get()
                 .then(function(querySnapshot) {
                     querySnapshot.forEach(function(doc2) {
                         // doc.data() is never undefined for query doc snapshots
-                        console.log(doc2.id, " => ", doc2.data());
                         assignments.push(doc2.id)
                     });
-                    console.log(assignments)
-                    console.log(doc.data.name)
                     createClassCard(doc.id,assignments)
 
                 })
@@ -117,7 +105,6 @@ firebase.auth().onAuthStateChanged(function(user) {
                     console.log("Error getting documents: ", error);
                 });
             });
-            window.alert("count"+count);
             if(count>0){
                 document.getElementById("introContainer").style.display = "none";
             }
@@ -144,7 +131,6 @@ firebase.auth().onAuthStateChanged(function(user) {
         "created":true
     }).then(function() {
         console.log("Document successfully written!");
-        console.log(document.getElementById("newClassName").value)
         createClassCard(document.getElementById("newClassName").value,[''])
         hideCreateClassDiv();
 
@@ -175,66 +161,70 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
     console.log("addActivity(\""+titleText+"\")")
     outerButton.style.border = "none";
+    outerButton.style.minHeight = "10vw";
+    outerButton.style.marginTop = "10vw";
 
     var outerDiv = document.createElement("div");
     outerDiv.id = "outerClassDiv";
     var innerDiv = document.createElement("div");
-    innerDiv.style.width = "90%"
+    innerDiv.style.width = "70vw"
     innerDiv.style.marginLeft = "5%"
     var title = document.createElement("h1");
     title.innerHTML = titleText
     if(title.innerHTML.length>14){
-        title.innerHTML = title.innerHTML.substring(0,14)+"..."
+        title.innerHTML = title.innerHTML.substring(0,20)+"..."
     }
     title.style.margin = "2%";
     title.style.marginLeft = "0%";
-    var floatedDiv = document.createElement("div");
-    floatedDiv.style.width = "100%";
-    floatedDiv.style.overflow = "hidden";
-    console.log("huh")
+    title.style.width = "100%";
+    title.style.marginRight = "0px";
+    title.style.textAlign = "left";
+    // var floatedDiv = document.createElement("div");
+    // floatedDiv.style.width = "100%";
+    // floatedDiv.style.overflow = "hidden";
+    // console.log("huh")
 
     
 
     var eachTitleDiv = document.createElement("div");
-    eachTitleDiv.style.float = "left";
+    // eachTitleDiv.style.float = "left";
     eachTitleDiv.style.width = "60%"
     for(var i = days.length-1;i>days.length-4;i--){
         if(i>=0){
             var eachTitle = document.createElement("h2");
             eachTitle.innerHTML = days[i];
             eachTitle.style.margin = "0%";
-            eachTitle.style.width = "52%"
-            eachTitle.style.float = "left"
-            eachTitleDiv.appendChild(eachTitle)
-        }else{
-            var eachTitle = document.createElement("h2");
-            eachTitle.innerHTML = "";
-            eachTitle.appendChild(document.createElement("br"))
-            eachTitle.style.margin = "0%";
-            eachTitle.style.width = "52%"
-            eachTitle.style.float = "left"
+            eachTitle.style.width = "100%"
+            // eachTitle.style.float = "left"
             eachTitleDiv.appendChild(eachTitle)
         }
+        // else{
+        //     var eachTitle = document.createElement("h2");
+        //     eachTitle.innerHTML = "";
+        //     eachTitle.appendChild(document.createElement("br"))
+        //     eachTitle.style.margin = "0%";
+        //     eachTitle.style.width = "52%"
+        //     eachTitle.style.float = "left"
+        //     eachTitleDiv.appendChild(eachTitle)
+        // }
     }
-    floatedDiv.appendChild(eachTitleDiv)
 
-
-    var button = document.createElement("button");
-    var img = document.createElement("img")
-    img.src = "Images/add.png";
-    button.style.width = "25%";
-    button.style.position = "relative";
-    // button.style.left = "50%";
-    // button.style.top = "-20%"
-    button.style.float  = "left";
-    img.className = "plusImage";
-    button.className = "addButton";
+    // var button = document.createElement("button");
+    // var img = document.createElement("img")
+    // img.src = "Images/add.png";
+    // button.style.width = "25%";
+    // button.style.position = "relative";
+    // // button.style.left = "50%";
+    // // button.style.top = "-20%"
+    // button.style.float  = "left";
+    // img.className = "plusImage";
+    // button.className = "addButton";
     
-    button.appendChild(img)
-    floatedDiv.appendChild(button);
+    // button.appendChild(img)
+    // floatedDiv.appendChild(button);
 
     innerDiv.appendChild(title);
-    innerDiv.appendChild(floatedDiv);
+    innerDiv.appendChild(eachTitleDiv);
     outerDiv.appendChild(innerDiv);
     outerButton.appendChild(outerDiv);
     document.getElementById("classCards").append(outerButton)
@@ -258,8 +248,6 @@ function createActivityCard(titleText, days){
     var floatedDiv = document.createElement("div");
     floatedDiv.style.width = "100%";
     floatedDiv.style.overflow = "hidden";
-    console.log("huh")
-
     
 
     var eachTitleDiv = document.createElement("div");
@@ -294,7 +282,6 @@ function addWorkout(){
         "sets":document.getElementById("workout").value
     }).then(function() {
         console.log("Document successfully written!");
-        console.log(document.getElementById("workout").value);
         createActivityCard(document.getElementById("date").value,document.getElementById("workout").value)
     })
     .catch(function(error) {
@@ -347,11 +334,9 @@ function classAssignmentsPage() {
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
             createActivityCard(doc.id, doc.data().sets)
             count++;
         });
-        console.log(count);
         if(count>0){
             document.getElementById("introContainer").remove();
         }
@@ -369,7 +354,6 @@ function showAddActivity(){
 }
 
 function signOutUser() {
-    alert("signing out");
     // deleteAllCookies();
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
