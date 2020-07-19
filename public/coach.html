@@ -95,7 +95,18 @@
         </div>
 
         <div id = "addActivityDiv" class = "screenDiv">
-            <div id="selectionMenu">
+
+            <!-- Class Creation Popup -->
+            <div id = "selectionMenu">
+                <h2 class = "popupTitle">Add Assignment</h2>
+                <h2 class = "inputLabel">Date</h2>
+                <input class = "nameInput" id = "date"><br>
+                <h2 class = "inputLabel">Assignment:</h2>
+                <textarea class = "nameInput" id="workout"></textarea>
+                <button class = "additionButton" onclick="addWorkout()">Assign</button>
+                <button onclick="hideAddActivity()" class = "cancelX"><img class = "cancelXImage" src = "Images/cancel.png"></button>
+            </div>
+            <!-- <div id="selectionMenu">
                 <button onclick="hideAddActivity()" ><img src="Images/cancel.png"></button>
                 <h1 >Add Assignment</h1>
                 <br><br><br><br><br>
@@ -109,7 +120,7 @@
                     <textarea id="workout"></textarea>
                 </div>
                 <button onclick="addWorkout()"><h2>Create</h2></button>
-            </div>
+            </div> -->
         </div>
         
         <!-- JS -->
