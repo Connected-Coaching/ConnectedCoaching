@@ -1,15 +1,17 @@
 // Initialize Cloud Firestore through Firebase
 firebase.initializeApp({
     apiKey: 'AIzaSyCH1DEQxf17qHLYz5Bf_H0zmlX9VmWUmP0',
-    authDomain: 'connected-coaching-283705.firebaseapp.com',
+    authDomain: 'connectedcoaching.web.app',
     projectId: 'connected-coaching-283705'
 });
+
+//connected-coaching-283705.firebaseapp.com
   
 var db = firebase.firestore();
 
 //gets called after page load
 function startedUp(){
-    window.alert(document.cookie)
+    window.alert(document.cookie);
 
     //makes sure that the person has been added to the database
     var addUsername = db.collection('users').doc(getCookie("email"));
@@ -19,7 +21,7 @@ function startedUp(){
         "coach":true
     }, { merge: true });
 
-    console.log("doing stuff")
+    console.log("doing stuff");
     //draws each one of the classes that are pertinent to the coach
     db.collection("users").doc(getCookie("email")).collection("classes")
     .get()
@@ -160,4 +162,34 @@ function addActivity(className){
     outerDiv.appendChild(innerDiv);
     outerButton.appendChild(outerDiv);
     document.getElementById("startPlacingHere").append(outerButton)
+}
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        alert("signed inn cjs");
+    } else {
+      alert("signed out cjs");
+    }
+  });
+
+function signOutUser() {
+    alert("signing out");
+    deleteAllCookies();
+    firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+        console.log("successful sign out");
+      }).catch(function(error) {
+        console.log(error);
+      });
+}
+
+function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
 }
