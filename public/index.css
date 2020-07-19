@@ -41,13 +41,15 @@ h2{
     border-radius: 10px 10px 10px;
     border-width: 5px;
     border-style: solid;
-    border-color: rgb(238,124,110);
+    border-color: rgb(254,105,93);
     background-color: rgb(238,238,238);
     transition: background-color .6s ease-in-out;
     margin-top: 0;
     font-weight: 900;
     font-size: 6vw;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgb(254,105,93, 0.6);
 }
 .eachButton:hover{
-    background-color: rgb(238,124,110);
+    background-color: rgb(254,105,93);
 }

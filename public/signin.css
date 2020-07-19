@@ -41,16 +41,16 @@ h2{
     border-radius: 10px 10px 10px;
     border-width: 5px;
     border-style: solid;
-    border-color: rgb(238,124,110);
+    border-color: rgb(254,105,93);
     background-color: rgb(238,238,238);
     transition: background-color .6s ease-in-out;
 }
 .eachButton:hover{
-    background-color: rgb(238,124,110);
+    background-color: rgb(254,105,93);
 }
 
 .mdl-textfield__input {
-    border-bottom: 5px solid rgb(238,124,110) !important;
+    border-bottom: 5px solid rgb(254,105,93) !important;
 }
 
 .is-focused {
@@ -59,11 +59,11 @@ h2{
 }
 
 .mdl-textfield__label {
-    color: rgb(238,124,110) !important;
+    color: rgb(254,105,93) !important;
 }
 
 .mdl-button--colored {
-    background-color: rgb(238,124,110) !important;
+    background-color: rgb(254,105,93) !important;
     
 }
 
@@ -80,5 +80,5 @@ h2{
 }
 
 .firebaseui-textfield.mdl-textfield .firebaseui-label::after {
-    background-color: rgb(238,124,110)!important;
+    background-color: rgb(254,105,93)!important;
 }
