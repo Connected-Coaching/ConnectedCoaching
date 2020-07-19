@@ -363,7 +363,7 @@ function createClassCard(titleText, days){
 
     var eachTitleDiv = document.createElement("div");
     eachTitleDiv.style.float = "left";
-    eachTitleDiv.style.width = "60%"
+    eachTitleDiv.style.width = "100%"
     for(var i = days.length-1;i>days.length-4;i--){
         if(i>=0){
             var eachTitle = document.createElement("h2");
