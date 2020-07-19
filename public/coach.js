@@ -1,97 +1,146 @@
-// Initialize Cloud Firestore through Firebase
-firebase.initializeApp({
-    apiKey: 'AIzaSyCH1DEQxf17qHLYz5Bf_H0zmlX9VmWUmP0',
-    authDomain: 'connectedcoaching.web.app',
-    projectId: 'connected-coaching-283705'
-});
+var firebaseConfig = {
+    apiKey: "AIzaSyDgUc2VayMTmwXgDeu4AlS9l9N6mulVIrw",
+    authDomain: "connected-coaching-283705.firebaseapp.com",
+    databaseURL: "https://connected-coaching-283705.firebaseio.com",
+    projectId: "connected-coaching-283705",
+    storageBucket: "connected-coaching-283705.appspot.com",
+    messagingSenderId: "815003298486",
+    appId: "1:815003298486:web:1dba374d809ed00bac5417",
+    measurementId: "G-TRHKGBYTQ8"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+
+// Initialize the FirebaseUI Widget using Firebase.
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+// var redirectURL = "/coach.html";
+var uiConfig = {
+    callbacks: {
+      signInSuccessWithAuthResult: function(authResult, redirectURL) {
+
+        // window.location.href = "/coach.html";
+        // User successfully signed in.
+        // Return type determines whether we continue the redirect automatically
+        // or whether we leave that to developer to handle.
+        console.log(authResult);
+        window.alert(authResult.displayName);
+
+        return false;
+      },
+      uiShown: function() {
+        // The widget is rendered.
+        // Hide the loader.
+        document.getElementById('loader').style.display = 'none';
+      }
+    },
+    credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+    // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+    signInFlow: 'popup',
+    signInSuccessUrl: 'https://connectedcoaching.web.app/coach.html',
+    signInOptions: [
+      // Leave the lines as is for the providers you want to offer your users.
+    //   firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    //   firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    //   firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+    //   firebase.auth.GithubAuthProvider.PROVIDER_ID,
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+    //   firebase.auth.PhoneAuthProvider.PROVIDER_ID
+    ],
+    // Terms of service url.
+    tosUrl: '<your-tos-url>',
+    // Privacy policy url.
+    privacyPolicyUrl: '<your-privacy-policy-url>'
+  };
 
 //connected-coaching-283705.firebaseapp.com
   
 var db = firebase.firestore();
 
-//gets called after page load
-function startedUp(){
-    window.alert(document.cookie);
+// handle signed in and out users
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
 
-    //makes sure that the person has been added to the database
-    var addUsername = db.collection('users').doc(getCookie("email"));
-    var setWithMerge = addUsername.set({
-        "name":getCookie("displayName"),
-        // make sure to change this to false for students
-        "coach":true
-    }, { merge: true });
+        homePage();
 
-    console.log("doing stuff");
-    //draws each one of the classes that are pertinent to the coach
-    db.collection("users").doc(getCookie("email")).collection("classes")
-    .get()
-    .then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-            // doc.data() is never undefined for query doc snapshots
-            console.log(doc.id, " => ", doc.data());
-            createClassCard(doc.id, ["monday","tuesday"])
-        });
-    })
+        document.cookie = "user = " + user;
+
+
+        console.log("here 1");
+        console.log(user);
+        console.log(user.email);
+        console.log(user.displayName);
+        var addUsername = db.collection('users').doc(user.email);
+        console.log("here 43");
+        var setWithMerge = addUsername.set({
+            "name":user.displayName,
+            "coach":true
+        }, { merge: true });
+
+        console.log("here 2");
+        db.collection("users").doc(user.email).collection("classes")
+            .get()
+            .then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                    // doc.data() is never undefined for query doc snapshots
+                    console.log(doc.id, " => ", doc.data());
+                    createClassCard(doc.id, ["monday","tuesday"])
+                });
+                console.log("here 3");
+            })
     .catch(function(error) {
         console.log("Error getting documents: ", error);
     });
 
+    } else {
+        //no user
+        console.log("there is no user");
+        signInPage();
+        ui.start('#firebaseui-auth-container', uiConfig);
 
-
-}
-// In progress for adding everything 
-
-// you can just put in the name of the cookie you want to get (like "email"), and it will return what it is
-function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
     }
-    return "";
-  }
+  });
 
-  //to avoid errors with arrays not being well supported, I created another collection (and another document)
-  //adds it into user database
-  function addClass(){
-    var createTheClass = db.collection('users').doc(getCookie("email")).collection("classes").doc(document.getElementById("nameOfClass").value);
+//gets called after page load
+function startedUp(){
+    window.alert(document.cookie);
+
+    console.log("doing stuff");
+    //draws each one of the classes that are pertinent to the coach
+    
+}
+
+
+
+  function createClassInDB() {
+
+    //gives coach the class in db
+    var createTheClass = db.collection('users').doc(getCookie("user").email).collection("classes").doc(document.getElementById("newClassName").value);
     createTheClass.set({
-        "name":document.getElementById("nameOfClass").value,
+        "name":document.getElementById("newClassName").value,
         "created":true
     }).then(function() {
         console.log("Document successfully written!");
-        createClassCard(document.getElementById("nameOfClass").value,[''])
+        createClassCard(document.getElementById("newClassName").value,[''])
     })
     .catch(function(error) {
         console.error("Error writing document: ", error);
     });
 
-
-    //adds the class to the other root
-    var addToRoot = db.collection("classes").doc(document.getElementById("nameOfClass").value);
+    // adds the class to classes collection
+    var addToRoot = db.collection("classes").doc(document.getElementById("newClassName").value);
     addToRoot.set({
-        "owner":getCookie("email")
+        "owner":getCookie("user").email
     }).then(function(){
 
     }).catch(function(error){
         console.error("Error with adding to the big classes list")
-    })
+    });
 
-    console.log("Hello?")
-    console.log(document.getElementById("nameOfClass").value+"")
-    
-    
   }
-function addActivity(className){
 
-}
   function createClassCard(titleText, days){
     var outerButton = document.createElement("button");
     outerButton.onclick = function(){
@@ -161,27 +210,47 @@ function addActivity(className){
     innerDiv.appendChild(floatedDiv);
     outerDiv.appendChild(innerDiv);
     outerButton.appendChild(outerDiv);
-    document.getElementById("startPlacingHere").append(outerButton)
+    document.getElementById("classCards").append(outerButton)
 }
 
-firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        alert("signed inn cjs");
-    } else {
-      alert("signed out cjs");
-    }
-  });
+function showCreateClassDiv() {
+    document.getElementById("createClassDiv").style.display = "block";
+    // document.getElementById("createClassDiv");
+}
+
+function hideCreateClassDiv() {
+    document.getElementById("createClassDiv").style.display = "none";
+    document.getElementById("newClassName").value = "";
+}
+
+function signInPage() {
+    document.getElementById("signInDiv").style.display = "block";
+    document.getElementById("myClassesDiv").style.display = "none";
+    document.getElementById("createClassDiv").style.display = "none";
+}
+
+function homePage() {
+    document.getElementById("signInDiv").style.display = "none";
+    document.getElementById("myClassesDiv").style.display = "block";
+    document.getElementById("createClassDiv").style.display = "none";
+}
 
 function signOutUser() {
     alert("signing out");
-    deleteAllCookies();
+    // deleteAllCookies();
     firebase.auth().signOut().then(function() {
         // Sign-out successful.
+        deleteAllCookies("user");
+        document.location.href = "/index.html"
         console.log("successful sign out");
       }).catch(function(error) {
         console.log(error);
       });
 }
+
+function delete_cookie( name ) {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
 
 function deleteAllCookies() {
     var cookies = document.cookie.split(";");
@@ -193,3 +262,19 @@ function deleteAllCookies() {
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
 }
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
