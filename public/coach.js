@@ -188,13 +188,15 @@ firebase.auth().onAuthStateChanged(function(user) {
 
     var eachTitleDiv = document.createElement("div");
     // eachTitleDiv.style.float = "left";
-    eachTitleDiv.style.width = "60%"
+    eachTitleDiv.style.width = "100%"
+    window.alert("update");
     for(var i = days.length-1;i>days.length-4;i--){
         if(i>=0){
             var eachTitle = document.createElement("h2");
             eachTitle.innerHTML = days[i];
             eachTitle.style.margin = "0%";
-            eachTitle.style.width = "100%"
+            eachTitle.style.width = "100%";
+            eachTitle.style.textAlign = "left";
             // eachTitle.style.float = "left"
             eachTitleDiv.appendChild(eachTitle)
         }
