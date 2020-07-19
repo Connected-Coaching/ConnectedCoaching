@@ -10,6 +10,7 @@ var db = firebase.firestore();
 //gets called after page load
 function startedUp(){
     window.alert(document.cookie)
+    document.getElementById("selectionMenu").style.display = "none";
 
     //makes sure that the person has been added to the database
     var addUsername = db.collection('users').doc(getCookie("email"));
@@ -21,11 +22,13 @@ function startedUp(){
 
     console.log("doing stuff")
     //draws each one of the classes that are pertinent to the coach
+    var count = 0;
     db.collection("users").doc(getCookie("email")).collection("classes")
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
+            count++;
             console.log(doc.id, " => ", doc.data());
             var assignments = []
             db.collection("classes").doc(doc.id).collection("assignments")
@@ -45,6 +48,10 @@ function startedUp(){
                 console.log("Error getting documents: ", error);
             });
         });
+        window.alert("count"+count);
+        if(count>0){
+            document.getElementById("introContainer").style.display = "none";
+        }
     })
     .catch(function(error) {
         console.log("Error getting documents: ", error);
@@ -72,7 +79,10 @@ function getCookie(cname) {
     return "";
   }
 function makeInvisible(){
-    
+    document.getElementById("selectionMenu").style.display = "none";
+}
+function showSelectionMenu(){
+    document.getElementById("selectionMenu").style.display = "block";
 }
   //to avoid errors with arrays not being well supported, I created another collection (and another document)
   //adds it into user database
@@ -118,15 +128,15 @@ function makeInvisible(){
     }
   });
 
-    createTheClass.set({
-        "name":document.getElementById("nameOfClass").value,
-        "created":true
-    }).then(function() {
-        console.log("Document successfully written!");
-    })
-    .catch(function(error) {
-        console.error("Error writing document: ", error);
-    });
+    // createTheClass.set({
+    //     "name":document.getElementById("nameOfClass").value,
+    //     "created":true
+    // }).then(function() {
+    //     console.log("Document successfully written!");
+    // })
+    // .catch(function(error) {
+    //     console.error("Error writing document: ", error);
+    // });
 
 
     //adds the class to the other root
@@ -139,13 +149,14 @@ function makeInvisible(){
 function addActivity(className){
 
 }
-  function createClassCard(titleText, days){
+
+function createClassCard(titleText, days){
     var outerButton = document.createElement("button");
     outerButton.style.width = "100%"
     outerButton.onclick = function(){
-        window.location.href = "/addActivity.html?class="+titleText;
+        window.location.href = "/viewActivity.html?class="+titleText;
     }
-    console.log("addActivity(\""+titleText+"\")")
+    console.log("viewActivity(\""+titleText+"\")")
     outerButton.style.border = "none";
 
     var outerDiv = document.createElement("div");
@@ -170,13 +181,15 @@ function addActivity(className){
     var eachTitleDiv = document.createElement("div");
     eachTitleDiv.style.float = "left";
     eachTitleDiv.style.width = "60%"
-    for(var i = 0;i<3;i++){
-        if(i<days.length){
+    for(var i = days.length-1;i>days.length-4;i--){
+        if(i>=0){
             var eachTitle = document.createElement("h2");
             eachTitle.innerHTML = days[i];
             eachTitle.style.margin = "0%";
             eachTitle.style.width = "52%"
             eachTitle.style.float = "left"
+            eachTitle.style.textAlign = "left"
+            eachTitle.style.paddingBottom = "1%"
             eachTitleDiv.appendChild(eachTitle)
         }else{
             var eachTitle = document.createElement("h2");

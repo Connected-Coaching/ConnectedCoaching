@@ -73,7 +73,7 @@ function makeInvisible(){
 function showPrompt(){
     document.getElementById("selectionMenu").style.display = "block"
 }
-function createClassCard(titleText, days){
+  function createClassCard(titleText, days){
 
 
     var outerDiv = document.createElement("div");
@@ -97,7 +97,7 @@ function createClassCard(titleText, days){
 
     var eachTitleDiv = document.createElement("div");
     eachTitleDiv.style.float = "left";
-    eachTitleDiv.style.width = "100%"
+    eachTitleDiv.style.width = "60%"
 
     var eachTitle = document.createElement("h2");
     eachTitle.innerHTML = days;
