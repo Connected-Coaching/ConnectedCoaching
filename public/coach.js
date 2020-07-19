@@ -1,3 +1,19 @@
+// Initialize Cloud Firestore through Firebase
+firebase.initializeApp({
+    apiKey: 'AIzaSyCH1DEQxf17qHLYz5Bf_H0zmlX9VmWUmP0',
+    authDomain: 'connected-coaching-283705.firebaseapp.com',
+    projectId: 'connected-coaching-283705'
+});
+  
+var db = firebase.firestore();
+
+function createClass() {
+    var className = document.getElementById("newClassNameInput");
+    if (className.value != "") {
+        db.collection("")
+    }
+}
+
 function startedUp(){
     createClassCard();
 

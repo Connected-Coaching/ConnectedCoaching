@@ -3,14 +3,23 @@
     <head>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
         <link rel="icon" href="Images/Favicon.png">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Connected Coaching</title>
         <link rel="stylesheet" type="text/css" href="coach.css">
+        
+        <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-app.js"></script>
+
+        <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/7.16.1/firebase-firestore.js"></script>
+        
         <script src="coach.js"></script>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
     </head>
     <body onload="startedUp()">
+        <input type = "text" id = "newClassNameInput">
+        <button id = "createNewClassButton" onclick="createClass()">Create</button>
         <button id="plusButtonContainer">
             <img src="Images/Add.png" style="width: 95%;height: 95%;margin: 2.5%;">
         </button>
