@@ -127,10 +127,15 @@ function startedUp(){
         "created":true
     }).then(function() {
         console.log("Document successfully written!");
+        console.log(document.getElementById("newClassName").value)
         createClassCard(document.getElementById("newClassName").value,[''])
+        hideCreateClassDiv();
+
     })
     .catch(function(error) {
         console.error("Error writing document: ", error);
+        hideCreateClassDiv();
+
     });
 
     // adds the class to classes collection
@@ -143,7 +148,6 @@ function startedUp(){
         console.error("Error with adding to the big classes list")
     });
 
-    hideCreateClassDiv();
 
   }
 
