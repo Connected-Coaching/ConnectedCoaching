@@ -18,6 +18,10 @@ var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
 var userg;
 
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+var classChosen = urlParams.get('class')
+
 // var redirectURL = "/coach.html";
 var uiConfig = {
     callbacks: {
@@ -65,9 +69,13 @@ var db = firebase.firestore();
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
 
-        homePage();
+        if (classChosen == null)
+            homePage();
+        else {
+            classAssignmentsPage();
+        }
 
-        document.cookie = "user = " + user;
+        // document.cookie = "user = " + user;
 
         userg = user;
 
@@ -107,17 +115,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
   });
 
-//gets called after page load
-function startedUp(){
-    window.alert(document.cookie);
-
-    console.log("doing stuff");
-    //draws each one of the classes that are pertinent to the coach
-    
-}
-
-
-
   function createClassInDB() {
 
     //gives coach the class in db
@@ -154,7 +151,7 @@ function startedUp(){
   function createClassCard(titleText, days){
     var outerButton = document.createElement("button");
     outerButton.onclick = function(){
-        window.location.href = "/addActivity.html?class="+titleText;
+        window.location.href = "/coach.html?class="+titleText;
     }
     console.log("addActivity(\""+titleText+"\")")
     outerButton.style.border = "none";
@@ -223,6 +220,70 @@ function startedUp(){
     document.getElementById("classCards").append(outerButton)
 }
 
+function createActivityCard(titleText, days){
+
+
+    var outerDiv = document.createElement("div");
+    outerDiv.id = "outerClassDiv";
+    var innerDiv = document.createElement("div");
+    innerDiv.style.width = "90%"
+    innerDiv.style.marginLeft = "5%"
+    var title = document.createElement("h1");
+    title.innerHTML = titleText
+    if(title.innerHTML.length>14){
+        title.innerHTML = title.innerHTML.substring(0,14)+"..."
+    }
+    title.style.margin = "2%";
+    title.style.marginLeft = "0%";
+    var floatedDiv = document.createElement("div");
+    floatedDiv.style.width = "100%";
+    floatedDiv.style.overflow = "hidden";
+    console.log("huh")
+
+    
+
+    var eachTitleDiv = document.createElement("div");
+    eachTitleDiv.style.float = "left";
+    eachTitleDiv.style.width = "60%"
+
+    var eachTitle = document.createElement("h2");
+    eachTitle.innerHTML = days;
+    eachTitle.style.margin = "0%";
+    eachTitle.style.width = "100%"
+    eachTitle.style.float = "left"
+    eachTitleDiv.appendChild(eachTitle)
+
+    
+    floatedDiv.appendChild(eachTitleDiv)
+
+
+    outerDiv.style.marginBottom = "5%"
+
+    innerDiv.appendChild(title);
+    innerDiv.appendChild(floatedDiv);
+    outerDiv.appendChild(innerDiv);
+    document.getElementById("startPlacingHere").append(outerDiv)
+}
+
+function addWorkout(){
+    hideAddActivity();
+
+    var classData = db.collection("classes").doc(classChosen);
+    var gettingToDate = classData.collection("assignments").doc(document.getElementById("date").value);
+    gettingToDate.set({
+        "sets":document.getElementById("workout").value
+    }).then(function() {
+        console.log("Document successfully written!");
+        console.log(document.getElementById("workout").value);
+        createActivityCard(document.getElementById("date").value,document.getElementById("workout").value)
+    })
+    .catch(function(error) {
+        console.error("Error writing document: ", error);
+    });
+
+    refresh();
+}
+
 function showCreateClassDiv() {
     document.getElementById("createClassDiv").style.display = "block";
     // document.getElementById("createClassDiv");
@@ -237,12 +298,54 @@ function signInPage() {
     document.getElementById("signInDiv").style.display = "block";
     document.getElementById("myClassesDiv").style.display = "none";
     document.getElementById("createClassDiv").style.display = "none";
+    document.getElementById("classAssignmentsDiv").style.display = "none";
+    document.getElementById("addActivityDiv").style.display = "none";
 }
 
 function homePage() {
     document.getElementById("signInDiv").style.display = "none";
     document.getElementById("myClassesDiv").style.display = "block";
     document.getElementById("createClassDiv").style.display = "none";
+    document.getElementById("classAssignmentsDiv").style.display = "none";
+    document.getElementById("addActivityDiv").style.display = "none";
+}
+
+function classAssignmentsPage() {
+    document.getElementById("signInDiv").style.display = "none";
+    document.getElementById("myClassesDiv").style.display = "none";
+    document.getElementById("createClassDiv").style.display = "none";
+    document.getElementById("classAssignmentsDiv").style.display = "block";
+    document.getElementById("addActivityDiv").style.display = "none";
+
+    var classData = db.collection("classes").doc(classChosen);
+
+    document.getElementById("titleText").innerHTML = classChosen;
+
+    var count = 0;
+    classData.collection("assignments")
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            createActivityCard(doc.id, doc.data().sets)
+            count++;
+        });
+        console.log(count);
+        if(count>0){
+            document.getElementById("introContainer").remove();
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
+    });
+}
+
+function hideAddActivity(){
+    document.getElementById("addActivityDiv").style.display = "none"
+}
+function showAddActivity(){
+    document.getElementById("addActivityDiv").style.display = "block"
 }
 
 function signOutUser() {

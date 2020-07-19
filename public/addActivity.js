@@ -24,7 +24,7 @@ function startedUp(){
         querySnapshot.forEach(function(doc) {
             // doc.data() is never undefined for query doc snapshots
             console.log(doc.id, " => ", doc.data());
-            createClassCard(doc.id, doc.data().sets)
+            createActivityCard(doc.id, doc.data().sets)
             count++;
         });
         console.log(count);
@@ -46,11 +46,13 @@ function addWorkout(){
     }).then(function() {
         console.log("Document successfully written!");
         console.log(document.getElementById("workout").value);
-        createClassCard(document.getElementById("date").value,document.getElementById("workout").value)
+        createActivityCard(document.getElementById("date").value,document.getElementById("workout").value);
+        refresh();
     })
     .catch(function(error) {
         console.error("Error writing document: ", error);
     });
+    
 }
 function getCookie(cname) {
     var name = cname + "=";
@@ -73,7 +75,7 @@ function makeInvisible(){
 function showPrompt(){
     document.getElementById("selectionMenu").style.display = "block"
 }
-  function createClassCard(titleText, days){
+  function createActivityCard(titleText, days){
 
 
     var outerDiv = document.createElement("div");

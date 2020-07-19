@@ -72,8 +72,56 @@
                 <button onclick="hideCreateClassDiv()">cancel</button>
             </div>
         </div>
+
+        <div id = "classAssignmentsDiv" class = "screenDiv">
+            <div id="bottomBar">
+                <button id="backButtonContainer">
+                    <a href="/coach.html" style="text-decoration: none;">
+                        <h2 style="color: black;text-decoration-color:white;">Back to Class Page</h2>
+                    </a>
+                </button>
+                <button id="plusButtonContainer" onclick="showAddActivity()">
+                    <img src="Images/Add.png" style="width: 95%;height: 95%;margin: 2.5%;">
+                </button>
+            </div>
+            
+            <div id="titleContainer">
+                <h1 id="titleText"></h1>
+            </div>
+            <br>
+            <div style="margin-top: 25%;" id="startPlacingHere"><br></div>
+        </div>
+
+        <div id = "addActivityDiv" class = "screenDiv">
+            <div style="width: 90%;margin-left: 2%;position: fixed;top: 30%;border-radius: 10px 10px 10px;
+            border-color: rgb(238,124,110);
+            border-style: solid;
+            border-width: 5px;
+            background-color: rgb(238,238,238);" id="selectionMenu">
+                <button onclick="hideAddActivity()" style="border: none;width: 20%;padding: 0%; float: left;"><img src="Images/Add.png" style="transform: rotate(45deg); width: 100%;"></button>
+                <h1 style="text-align: center; float: left;">Add Assignment</h1>
+                <br><br><br><br><br>
+                <div>
+                    <h2 style="margin: 0%;float: left;">Date:</h2>
+                    <input id="date" style="float: left;border-radius: 5px 5px;height: 26px;margin-left: 15px;border-color: black;border-width: 1px;">
+                </div>
+                <br><br>
+                <div style="width: 100%;">
+                    <h2 style="margin: 0%;">Assignment:</h2>
+                    <textarea id="workout" style="width:90%;margin-left: 1%;border-radius: 5px 5px;border-color: black;height: 15%;height: 15vh;"></textarea>
+                </div>
+                <button onclick="addWorkout()" style="margin-bottom: 2%;border-color: rgb(238,124,110);border-style: solid;border-width: 5px;width: 50%;margin-left: 25%;border-radius: 10px 10px 10px;"><h2 style="color: black;">Create</h2></button>
+            </div>
+        </div>
         
         <!-- JS -->
+        <script>
+            function refresh() {
+                console.log("im so triggered");
+                location.reload();
+                
+            }
+        </script>
         <script src="coach.js"></script>
     </body>
 </html>
