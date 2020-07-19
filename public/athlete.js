@@ -1,10 +1,23 @@
-// Initialize Cloud Firestore through Firebase
-firebase.initializeApp({
-    apiKey: 'AIzaSyCH1DEQxf17qHLYz5Bf_H0zmlX9VmWUmP0',
-    authDomain: 'connected-coaching-283705.firebaseapp.com',
-    projectId: 'connected-coaching-283705'
-});
-  
+var firebaseConfig = {
+    apiKey: "AIzaSyDgUc2VayMTmwXgDeu4AlS9l9N6mulVIrw",
+    authDomain: "connected-coaching-283705.firebaseapp.com",
+    databaseURL: "https://connected-coaching-283705.firebaseio.com",
+    projectId: "connected-coaching-283705",
+    storageBucket: "connected-coaching-283705.appspot.com",
+    messagingSenderId: "815003298486",
+    appId: "1:815003298486:web:1dba374d809ed00bac5417",
+    measurementId: "G-TRHKGBYTQ8"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+
+// Initialize the FirebaseUI Widget using Firebase.
+var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+var userg;
+
 var db = firebase.firestore();
 
 //gets called after page load
@@ -13,9 +26,9 @@ function startedUp(){
     document.getElementById("selectionMenu").style.display = "none";
 
     //makes sure that the person has been added to the database
-    var addUsername = db.collection('users').doc(getCookie("email"));
+    var addUsername = db.collection('users').doc(userg.email);
     var setWithMerge = addUsername.set({
-        "name":getCookie("displayName"),
+        "name":userg.displayName,
         // make sure to change this to false for students
         "coach":true
     }, { merge: true });
@@ -23,7 +36,7 @@ function startedUp(){
     console.log("doing stuff")
     //draws each one of the classes that are pertinent to the coach
     var count = 0;
-    db.collection("users").doc(getCookie("email")).collection("classes")
+    db.collection("users").doc(userg.email).collection("classes")
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
@@ -87,7 +100,7 @@ function showSelectionMenu(){
   //to avoid errors with arrays not being well supported, I created another collection (and another document)
   //adds it into user database
   function addClass(){
-    var createTheClass = db.collection('users').doc(getCookie("email")).collection("classes").doc(document.getElementById("nameOfClass").value);
+    var createTheClass = db.collection('users').doc(userg.email).collection("classes").doc(document.getElementById("nameOfClass").value);
     createTheClass.get()
     .then((docSnapshot) => {
     if (docSnapshot.exists) {
