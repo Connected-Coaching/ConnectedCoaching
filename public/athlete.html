@@ -44,7 +44,7 @@
 
         <div id = "myClassesDiv">
             <!-- Sign out and Create Class Button -->
-            <button id = "signOutButton" onclick="signOutUser()">Sing out</button>
+            <button id = "signOutButton" onclick="signOutUser()">Sign out</button>
             <button id="plusButtonContainer" onclick = "showCreateClassDiv()">
                 <img src="Images/Add.png" style="width: 95%;height: 95%;margin: 2.5%;">
             </button>
@@ -53,10 +53,10 @@
                 <img src="Images/ConnectedCoachingLogo.png" style="width: 100%;">
             </div>
             <div id="titleContainer">
-                <h1>Connected<br>Coaching</h1>
+                <h1 style="margin-bottom: 0%;">Connected<br>Coaching</h1>
             </div>
             <br>
-            <div style="margin-top: 25%;" id="classCards"><br></div>
+            <div style="margin-top: 0%;" id="classCards"><br></div>
             <!-- Make this div opacity 0 if we detect they have a class -->
             <div id="introContainer">
                 <h2>Get started by creating a class...</h2>
@@ -77,11 +77,12 @@
 
         <div id = "classAssignmentsDiv" class = "screenDiv">
             <div id="bottomBar">
+                <a href="/athlete.html" style="text-decoration: none;">
+
                 <button id="backButtonContainer">
-                    <a href="/athlete.html" style="text-decoration: none;">
                         <h2 style="color: black;text-decoration-color:white;">Back to Class Page</h2>
-                    </a>
                 </button>
+                </a>
 
             </div>
             
@@ -89,7 +90,7 @@
                 <h1 id="titleText"></h1>
             </div>
             <br>
-            <div style="margin-top: 25%;" id="startPlacingHere"><br></div>
+            <div style="margin-top: 0%;" id="startPlacingHere"><br></div>
         </div>
 
         <div id = "addActivityDiv" class = "screenDiv">

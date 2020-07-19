@@ -28,7 +28,6 @@ var classChosen = urlParams.get('class')
         // Return type determines whether we continue the redirect automatically
         // or whether we leave that to developer to handle.
         console.log(authResult);
-        window.alert(authResult.displayName);
 
         return false;
       },
@@ -114,7 +113,6 @@ firebase.auth().onAuthStateChanged(function(user) {
                     console.log("Error getting documents: ", error);
                 });
             });
-            window.alert("count"+count);
             if(count>0){
                 document.getElementById("introContainer").style.display = "none";
             }
@@ -161,7 +159,8 @@ function createActivityCard(titleText, days){
 
     var eachTitleDiv = document.createElement("div");
     eachTitleDiv.style.float = "left";
-    eachTitleDiv.style.width = "60%"
+    console.log("what?")
+    eachTitleDiv.style.width = "100%"
 
     var eachTitle = document.createElement("h2");
     eachTitle.innerHTML = days;
@@ -333,6 +332,8 @@ function addActivity(className){
 function createClassCard(titleText, days){
     var outerButton = document.createElement("button");
     outerButton.style.width = "100%"
+    outerButton.style.marginBottom = "5%"
+
     outerButton.onclick = function(){
         window.location.href = "/athlete.html?class="+titleText;
     }
